@@ -23,13 +23,13 @@ function Post() {
       {
         !post.id ?
           (
-          <div> Post doesn't exist! </div>
+            <div> Post doesn't exist! </div>
           )
           :
           (
             <div className="post-comment-view">
-                <PostItem { ...post } />
-                <Comments {...post} />
+              <PostItem { ...post } />
+              <Comments {...post} />
             </div>
           )
       }
