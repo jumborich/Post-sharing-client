@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import PostItem from "./postItem";
+import Comments from "./comments";
+import { POST } from "../utils/endpoints";
 
 function Post() {
   const params = useParams();
   const [post, setPost] = useState({});
-  const { posts } = useSelector(state => state.post);
  
-  useEffect(() => {
-    posts.length && posts.find(post =>{
-      if(parseInt(post.id) === parseInt(params.postId)){
-        setPost(post);
-      }
-    });
+  useEffect(() =>{
+    ( () => {
+      const auth_token = sessionStorage.getItem("auth_token");
+      axios(`${POST.GET_ALL}${params.id}`, { withCredentials: true, params:{auth_token}})
+      .then((post) => setPost(post.data))
+      .catch((error) => console.log(error));
+    })()
   },[]);
 
-  return (
-    <div className="post-container">
+  return(
+    <div className="post-comment-container">
       {
         !post.id ?
           (
@@ -24,14 +27,9 @@ function Post() {
           )
           :
           (
-              <div className="post-item">
-              <h3 className="post-title post-guard">{post.title}</h3>
-              <div className="post-body-wrapper">
-                <p className="post-body-item">
-                  {post.postText}
-                </p>
-              </div>
-              <div className="post-owner post-guard">posted by: <strong>{ post.username }</strong> </div>
+            <div className="post-comment-view">
+                <PostItem { ...post } />
+                <Comments {...post} />
             </div>
           )
       }
