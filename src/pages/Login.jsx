@@ -23,7 +23,6 @@ function Login() {
       }
     })
     .then(res =>{
-      console.log("res: ", res)
       const { user, token } = res.data;
 
       dispatch(fetchUser(user));
