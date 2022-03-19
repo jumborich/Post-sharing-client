@@ -1,4 +1,4 @@
-Web app bootstrapped with Create-React-App for sharing posts amongts friends.
+Web app bootstrapped with Create-React-App for sharing posts amongst friends.
 
 Tools and Libraries used:
 
